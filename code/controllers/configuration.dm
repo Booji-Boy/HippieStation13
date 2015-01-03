@@ -85,6 +85,9 @@
 	var/changeling_scaling_coeff = 6	//how much does the amount of players get divided by to determine changelings
 	var/security_scaling_coeff = 8		//how much does the amount of players get divided by to determine open security officer positions
 
+	var/media_base_url = "" 			// http://ss13.nexisonline.net/media
+	var/media_secret_key = "" 			// Random string
+
 	var/traitor_objectives_amount = 2
 	var/protect_roles_from_antagonist = 0 //If security and such can be traitor/cult/other
 	var/protect_assistant_from_antagonist = 0 //If assistants can be traitor/cult/other
@@ -261,6 +264,10 @@
 					achievement_hub = value
 				if("achievement_password")
 					achievement_password = value
+				if("media_base_url")
+					media_base_url 			= value
+				if("media_secret_key")
+					media_secret_key 		= value
 				if("guest_jobban")
 					config.guest_jobban = 1
 				if("guest_ban")

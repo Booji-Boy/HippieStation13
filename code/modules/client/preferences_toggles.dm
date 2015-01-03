@@ -174,3 +174,16 @@ var/list/ghost_forms = list("ghost","ghostking","ghostian2","ghost_red","ghost_b
 	src << "[(prefs.toggles & INTENT_STYLE) ? "Clicking directly on intents selects them." : "Clicking on intents rotates selection clockwise."]"
 	prefs.save_preferences()
 	feedback_add_details("admin_verb","ITENTS") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+
+/client/verb/toggle_media()
+	set name = "Hear/Silence Streaming"
+	set category = "Preferences"
+	set desc = "Toggle hearing streaming media (radios, jukeboxes, etc)"
+
+	prefs.toggles ^= SOUND_STREAMING
+	//prefs.save_preferences_sqlite(src, ckey)
+	usr << "You will [(prefs.toggles & SOUND_STREAMING) ? "now" : "no longer"] hear streamed media."
+	if(prefs.toggles & SOUND_STREAMING)
+		media.update_music()
+	else
+		media.stop_music()

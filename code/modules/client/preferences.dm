@@ -87,6 +87,9 @@ datum/preferences
 
 	var/unlock_content = 0
 
+		// jukebox volume
+	var/volume = 100
+
 /datum/preferences/New(client/C)
 	blood_type = random_blood_type()
 	ooccolor = normal_ooc_colour
