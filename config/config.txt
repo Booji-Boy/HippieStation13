@@ -161,7 +161,7 @@ ACHIEVEMENT_PASSWORD Nikita1
 ## Media URL.
 ## The base URL of your media library.  DO NOT ADD A SLASH AT THE END!
 ## NOTE that this must be publically-accessible.
-MEDIA_BASE_URL http://stark.jamiehankins.co.uk/SS13-media
+MEDIA_BASE_URL http://stark.jamiehankins.co.uk/fuckmedia
 
 
 ##  Media Server 2 requires a secret key in order to tell the jukebox

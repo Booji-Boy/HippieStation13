@@ -60,9 +60,9 @@
 
 
 var/global/loopModeNames=list(
-	JUKEMODE_SHUFFLE     = "Shuffle",
+	JUKEMODE_SHUFFLE = "Shuffle",
 	JUKEMODE_REPEAT_SONG = "Single",
-	JUKEMODE_PLAY_ONCE   = "Once",
+	JUKEMODE_PLAY_ONCE= "Once",
 )
 /obj/machinery/media/jukebox
 	name = "Jukebox"
@@ -116,8 +116,6 @@ var/global/loopModeNames=list(
 	..()
 	if(emagged && !(stat & (NOPOWER|BROKEN)))
 		playing = 1
-		if(current_song)
-			update_music()
 	update_icon()
 
 /obj/machinery/media/jukebox/update_icon()
@@ -151,7 +149,11 @@ var/global/loopModeNames=list(
 		update_icon()
 		return
 
-	var/t = ""
+	var/t = "<div class=\"navbar\">"
+	t += "<a href=\"?src=\ref[src];screen=[JUKEBOX_SCREEN_MAIN]\">Main</a>"
+	if(allowed(user))
+		t += " | <a href=\"?src=\ref[src];screen=[JUKEBOX_SCREEN_SETTINGS]\">Settings</a>"
+	t += "</div>"
 	switch(screen)
 		if(JUKEBOX_SCREEN_MAIN)     t += ScreenMain(user)
 
@@ -186,51 +188,50 @@ var/global/loopModeNames=list(
 			t += "<b>Up next:</b> [song.artist] - [song.title]<br />"
 		t += "<table class='prettytable'><tr><th colspan='2'>Artist - Title</th><th>Album</th></tr>"
 		var/i
-		var/can_change=!next_song
-		can_change = 1
 
 		for(i = 1,i <= playlist.len,i++)
 			var/datum/song_info/song=playlist[i]
 			t += "<tr><th>#[i]</th><td>"
-			if(can_change) t += "<A href='?src=\ref[src];song=[i]' class='nobg'>"
+			t += "<A href='?src=\ref[src];song=[i]' class='nobg'>"
 			t += song.displaytitle()
-			if(can_change) t += "</A>"
+			t += "</A>"
 			t += "</td><td>[song.album]</td></tr>"
 		t += "</table>"
 	return t
 
 /obj/machinery/media/jukebox/attackby(obj/item/W, mob/user)
-	..()
-	if(istype(W,/obj/item/weapon/card/id))
-		if(!selected_song || screen!=JUKEBOX_SCREEN_PAYMENT)
+	if(istype(W, /obj/item/weapon/card/emag))
+		current_song = 0
+		if(!emagged)
+			playlist_id = "emagged"
+			last_reload=world.time
+			playlist=null
+			loop_mode = JUKEMODE_SHUFFLE
+			emagged = 1
+			playing = 1
+			user.visible_message("\red [user.name] slides something into the [src.name]'s card-reader.","\red You short out the [src.name].")
+			update_icon()
+			update_music()
+	else if(istype(W,/obj/item/weapon/wrench))
+		var/un = !anchored ? "" : "un"
+		user.visible_message("\blue [user.name] begins [un]locking \the [src.name]'s casters.","\blue You begin [un]locking \the [src.name]'s casters.")
+		if(do_after(user,30))
+			playsound(get_turf(src), 'sound/items/Ratchet.ogg', 50, 1)
+			anchored = !anchored
+			user.visible_message("\blue [user.name] [un]locks \the [src.name]'s casters.","\red You [un]lock \the [src.name]'s casters.")
+			playing = emagged
+			update_music()
+			update_icon()
+	else if(istype(W,/obj/item/weapon/card/id))
+		if(!selected_song)
 			visible_message("\blue The machine buzzes.","\red You hear a buzz.")
 			return
+
 		visible_message("\blue The machine beeps happily.","You hear a beep.")
 
 		successful_purchase()
 
 		attack_hand(user)
-
-/obj/machinery/media/jukebox/emag_act(mob/user)
-	current_song = 0
-	if(!emagged)
-		playlist_id = "emagged"
-		last_reload=world.time
-		playlist=null
-		loop_mode = JUKEMODE_SHUFFLE
-		emagged = 1
-		playing = 1
-		user.visible_message("\red [user.name] slides something into the [src.name]'s card-reader.","\red You short out the [src.name].")
-		update_icon()
-		update_music()
-		return 1
-	return
-
-///obj/machinery/media/jukebox/wrenchAnchor(mob/user)
-//	if(..())
-//		playing = emagged
-//		update_music()
-//		update_icon()
 
 /obj/machinery/media/jukebox/proc/successful_purchase()
 		next_song = selected_song
@@ -256,8 +257,6 @@ var/global/loopModeNames=list(
 			usr << "\red You must wait 60 seconds between playlist reloads."
 			return
 		playlist_id=href_list["playlist"]
-		//if(isAdminGhost(usr))
-		//	message_admins("[key_name_admin(usr)] changed [src] playlist to [playlist_id] at [formatJumpTo(src)]")
 		last_reload=world.time
 		playlist=null
 		current_song = 0
@@ -273,6 +272,7 @@ var/global/loopModeNames=list(
 		if(!current_song)
 			update_music()
 			update_icon()
+
 	if (href_list["cancelbuy"])
 		selected_song=0
 		screen = JUKEBOX_SCREEN_MAIN
@@ -286,15 +286,6 @@ var/global/loopModeNames=list(
 	if(!playlist)
 		var/url="[config.media_base_url]/index.php?playlist=[playlist_id]"
 		testing("[src] - Updating playlist from [url]...")
-
-		//  Media Server 2 requires a secret key in order to tell the jukebox
-		// where the music files are. It's set in config with MEDIA_SECRET_KEY
-		// and MUST be the same as the media server's.
-		//
-		//  Do NOT log this, it's like a password.
-		if(config.media_secret_key!="")
-			url += "&key=[config.media_secret_key]"
-
 		var/response = world.Export(url)
 		playlist=list()
 		if(response)
@@ -326,6 +317,7 @@ var/global/loopModeNames=list(
 			return
 	if(playing)
 		var/datum/song_info/song
+		if(!playlist.len) return 0
 		if(current_song)
 			song = playlist[current_song]
 		if(!current_song || (song && world.time >= media_start_time + song.length))
@@ -393,6 +385,59 @@ var/global/loopModeNames=list(
 		"bar"  = "Bar Mix",
 		"jazz" = "Jazz",
 		"rock" = "Rock",
-		"muzak" = "Muzak",
-		"thunderdome" = "Thunderdome", // For thunderdome I guess
+		"muzak" = "Muzak"
 	)
+
+// So I don't have to do all this shit manually every time someone sacrifices pun-pun.
+// Also for debugging.
+/obj/machinery/media/jukebox/superjuke
+	name = "Super Juke"
+	desc = "The ultimate jukebox. Your brain begins to liquify from simply looking at it."
+
+	state_base = "superjuke"
+	change_cost = 0
+
+	playlist_id="bar"
+	// Must be defined on your server.
+	playlists=list(
+		"bar"  = "Bar Mix",
+		"jazz" = "Jazz",
+		"rock" = "Rock",
+		"muzak" = "Muzak",
+
+		"emagged" = "Syndie Mix",
+		"shuttle" = "Shuttle",
+		"endgame" = "Apocalypse"
+	)
+
+/obj/machinery/media/jukebox/superjuke/attackby(obj/item/W, mob/user)
+	// NO FUN ALLOWED.  Emag list is included, anyway.
+	if(istype(W, /obj/item/weapon/card/emag))
+		user << "\red Your [W] refuses to touch \the [src]!"
+		return
+	..()
+
+/obj/machinery/media/jukebox/superjuke/shuttle
+	playlist_id="shuttle"
+	id_tag="Shuttle" // For autolink
+
+
+/obj/machinery/media/jukebox/superjuke/thematic
+	playlist_id="endgame"
+
+/obj/machinery/media/jukebox/superjuke/thematic/update_music()
+	if(current_song && playing)
+		var/datum/song_info/song = playlist[current_song]
+		media_url = song.url
+		last_song = current_song
+		media_start_time = world.time
+		visible_message("<span class='notice'>\icon[src] \The [src] begins to play [song.display()].</span>","<em>You hear music.</em>")
+		//visible_message("<span class='notice'>\icon[src] \The [src] warbles: [song.length/10]s @ [song.url]</notice>")
+	else
+		media_url=""
+		media_start_time = 0
+
+	// Send update to clients.
+	for(var/mob/M in mob_list)
+		if(M && M.client)
+			M.force_music(media_url,media_start_time,volume)
