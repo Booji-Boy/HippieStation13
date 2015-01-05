@@ -23,7 +23,8 @@
 									'sound/ambience/ambigen8.ogg','sound/ambience/ambigen9.ogg',\
 									'sound/ambience/ambigen10.ogg','sound/ambience/ambigen11.ogg',\
 									'sound/ambience/ambigen12.ogg','sound/ambience/ambigen14.ogg')
-
+	var/obj/machinery/media/media_source = null
+	
 /area/New()
 	icon_state = ""
 	layer = 10
@@ -328,6 +329,9 @@
 	var/area/newarea = get_area(L.loc)
 
 	L.lastarea = newarea
+
+	if(L.client && L.client.media)
+		L.update_music()
 
 	// Ambience goes down here -- make sure to list each area seperately for ease of adding things in later, thanks! Note: areas adjacent to each other should have the same sounds to prevent cutoff when possible.- LastyScratch
 	if(!(L && L.client && (L.client.prefs.toggles & SOUND_AMBIENCE)))	return

@@ -53,31 +53,6 @@ function SetMusic(url, time, volume) {
 	</script>"}
 */
 
-// Hook into the events we desire.
-/hook_handler/soundmanager
-	// Set up player on login
-	proc/OnLogin(var/list/args)
-		//testing("Received OnLogin.")
-		var/client/C = args["client"]
-		C.media = new /datum/media_manager(args["mob"])
-		C.media.open()
-		C.media.update_music()
-
-	proc/OnReboot(var/list/args)
-		//testing("Received OnReboot.")
-		// Stop all music.
-		for(var/mob/M in mob_list)
-			if(M && M.client)
-				M.stop_all_music()
-
-	// Update when moving between areas.
-	proc/OnMobAreaChange(var/list/args)
-		var/mob/M = args["mob"]
-		//if(istype(M, /mob/living/carbon/human)||istype(M, /mob/dead/observer))
-		//	testing("Received OnMobAreaChange for [M.type] [M] (M.client=[M.client==null?"null":"/client"]).")
-		if(M.client && M.client.media && !M.client.media.forced)
-			M.update_music()
-
 /mob/proc/update_music()
 	if (client && client.media && !client.media.forced)
 		client.media.update_music()
@@ -93,10 +68,7 @@ function SetMusic(url, time, volume) {
 			client.media.push_music(url,start,volume)
 		else
 			client.media.update_music()
-
-/area
-	// One media source per area.
-	var/obj/machinery/media/media_source = null
+	
 
 #ifdef DEBUG_MEDIAPLAYER
 #define MP_DEBUG(x) owner << x
