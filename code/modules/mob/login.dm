@@ -38,6 +38,11 @@
 
 	..()
 
+	if (client)
+		client.media = new /datum/media_manager(src)
+		client.media.open()
+		client.media.update_music()
+		
 	if(loc && !isturf(loc))
 		client.eye = loc
 		client.perspective = EYE_PERSPECTIVE

@@ -23,10 +23,6 @@ var/next_mob_id = 0
 		living_mob_list += src
 	prepare_huds()
 	..()
-	if (client)
-		client.media = new /datum/media_manager(src)
-		client.media.open()
-		client.media.update_music()
 
 /mob/proc/prepare_huds()
 	for(var/hud in hud_possible)
