@@ -25,12 +25,6 @@
 	hooked.Remove(T)
 	return 1
 
-/proc/get_area_master(const/O)
-	var/area/A = get_area(O)
-
-	if (isarea(A))
-		return A.master
-
 /proc/mobs_in_area(var/area/the_area, var/client_needed=0, var/moblist=mob_list)
 	var/list/mobs_found[0]
 	var/area/our_area = get_area_master(the_area)
