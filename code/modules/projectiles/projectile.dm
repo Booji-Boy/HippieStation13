@@ -131,4 +131,4 @@
 					if(!(original in permutated))
 						Bump(original)
 			Range()
-			sleep(1)
+			sleep(0.5)

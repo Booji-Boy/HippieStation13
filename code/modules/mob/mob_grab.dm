@@ -37,6 +37,7 @@
 
 /obj/item/weapon/grab/Destroy()
 	if(affecting)
+		affecting.glide_size = 4
 		affecting.grabbed_by -= src
 		affecting = null
 	if(assailant)

@@ -1,3 +1,5 @@
+#define MINIMUM_SPEED 0.5
+
 /mob/CanPass(atom/movable/mover, turf/target, height=0)
 	if(height==0) return 1
 
@@ -141,21 +143,45 @@
 					else
 						M.stop_pulling()
 
+		var/inc = 0
 		move_delay = world.time//set move delay
 
 		switch(mob.m_intent)
 			if("run")
 				if(mob.drowsyness > 0)
-					move_delay += 6
-				move_delay += config.run_speed
+					inc += 6
+				inc += config.run_speed
 			if("walk")
-				move_delay += config.walk_speed
-		move_delay += mob.movement_delay()
+				inc += config.walk_speed
+		inc += mob.movement_delay()
 
-		if(config.Tickcomp)
-			move_delay -= 1.3
-			var/tickcomp = (1 / (world.tick_lag)) * 1.3
-			move_delay = move_delay + tickcomp
+		src << inc
+
+		if(inc > MINIMUM_SPEED)
+			/*// Force increment to be a power of two
+			--inc
+			inc |= inc >> 1
+			inc |= inc >> 2
+			inc |= inc >> 4
+			inc |= inc >> 8
+			inc |= inc >> 16
+			++inc*/
+		else
+			// Enforce a minimum speed rather than relying on tickrate with negative speeds
+			// This won't be as smooth
+			inc = MINIMUM_SPEED
+
+		mob.glide_size = 32 * world.tick_lag / inc
+
+		src << "for [inc] @ [mob.glide_size]/t"
+
+		if(mob.pulling)
+			mob.pulling.glide_size = mob.glide_size
+
+		if(mob.m_intent == "walk")
+			inc += 1
+
+		move_delay += inc
 
 		//We are now going to move
 		moving = 1
@@ -177,6 +203,7 @@
 								else
 									diag = null
 								if ((get_dist(mob, M) > 1 || diag))
+									M.glide_size = mob.glide_size
 									step(M, get_dir(M.loc, T))
 				else
 					for(var/mob/M in L)
@@ -185,6 +212,7 @@
 							M.animate_movement = 3
 					for(var/mob/M in L)
 						spawn( 0 )
+							M.glide_size = mob.glide_size
 							step(M, direct)
 							return
 						spawn( 1 )

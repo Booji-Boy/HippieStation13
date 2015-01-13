@@ -86,7 +86,9 @@
 			flags = NOSLIP
 
 /obj/item/clothing/shoes/clown_shoes/step_action()
-	playsound(src, "clownstep", 50, 1)
+	if(footstep % 4 == 0)
+		playsound(src, "clownstep", 50, 1)
+	footstep++
 
 /obj/item/clothing/shoes/jackboots
 	name = "jackboots"

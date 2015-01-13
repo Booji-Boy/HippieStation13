@@ -375,6 +375,7 @@ var/list/slot_equipment_priority = list( \
 	set category = "IC"
 
 	if(pulling)
+		pulling.glide_size = 4
 		pulling.pulledby = null
 		pulling = null
 
