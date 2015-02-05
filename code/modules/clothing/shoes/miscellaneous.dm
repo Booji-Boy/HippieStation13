@@ -2,11 +2,12 @@
 	var/turf/T = get_turf(user)
 	if(istype(T, /turf/space) || !T.stepsound) //Space should never have step sounds
 		return
+	if(user && user.client && !(user.client.prefs.toggles & SOUND_FOOTSTEPS))
+		return
 	if(user.m_intent == "run") //&& prob(50) //to add to stealth
 		if (user.footstep < world.time)
-			user.footstep = world.time + 5 //Half a second
-			playsound(src, "step", 15, 1)
-			//playsound(src, pick(T.stepsound), 15, 1)
+			user.footstep = world.time + 2 //Half a second
+			playsound(src, pick(T.stepsound), 10, 0)
 
 /obj/item/clothing/shoes/syndigaloshes
 	desc = "A pair of brown shoes. They seem to have extra grip."
@@ -95,7 +96,9 @@
 
 /obj/item/clothing/shoes/clown_shoes/step_action(mob/user as mob)
 	var/turf/T = get_turf(user)
-	if(istype(T, /turf/space)) //Space should never have step sounds
+	if(istype(T, /turf/space) || !T.stepsound) //Space should never have step sounds
+		return
+	if(user && user.client && !(user.client.prefs.toggles & SOUND_FOOTSTEPS))
 		return
 	playsound(src, "clownstep", 30, 1)
 
