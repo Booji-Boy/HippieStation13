@@ -5,9 +5,9 @@
 /datum/game_mode/nuclear
 	name = "nuclear emergency"
 	config_tag = "nuclear"
-	required_players = 20 // 20 players - 5 players to be the nuke ops = 15 players remaining
-	required_enemies = 5
-	recommended_enemies = 5
+	required_players = 0 // 20 players - 5 players to be the nuke ops = 15 players remaining
+	required_enemies = 0
+	recommended_enemies = 1
 	pre_setup_before_jobs = 1
 	antag_flag = BE_OPERATIVE
 
@@ -85,7 +85,7 @@
 
 		forge_syndicate_objectives(synd_mind)
 		greet_syndicate(synd_mind)
-		equip_syndicate(synd_mind.current)
+		corp(synd_mind)
 
 		if (nuke_code)
 			synd_mind.store_memory("<B>Syndicate Nuclear Bomb Code</B>: [nuke_code]", 0, 0)
