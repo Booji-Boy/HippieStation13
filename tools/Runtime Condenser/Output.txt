@@ -1,13 +1,248 @@
 Note: The proc name, source file, src and usr are all from the FIRST of the identical runtimes. Everything else is cropped.
 
-Total unique runtimes: 1
-Total runtimes: 98
+Total unique runtimes: 33
+Total runtimes: 999
 
 ** Runtimes **
 
-The following runtime has occured 98 time(s).
-runtime error: undefined variable /datum/controller/event/var/len
-proc name: initList (/datum/updateQueue/proc/initList)
-  source file: updateQueue.dm,72
+The following runtime has occured 475 time(s).
+runtime error: Cannot read null.name
+proc name: cmp name asc (/proc/cmp_name_asc)
+  source file: cmp.dm,14
+  usr: Birdlin Birdlin (/mob/dead/observer)
+  src: null
+
+
+The following runtime has occured 190 time(s).
+runtime error: undefined variable /var/len
+proc name: update inv hands (/mob/living/simple_animal/drone/proc/update_inv_hands)
+  source file: drone.dm,450
+  usr: Drone (580) (/mob/living/simple_animal/drone)
+  src: Drone (580) (/mob/living/simple_animal/drone)
+
+
+The following runtime has occured 65 time(s).
+runtime error: Cannot read null.z
+proc name: point at (/obj/item/weapon/pinpointer/proc/point_at)
+  source file: pinpointer.dm,40
   usr: null
-  src: /datum/updateQueue (/datum/updateQueue)
+  src: the pinpointer (/obj/item/weapon/pinpointer)
+
+
+The following runtime has occured 55 time(s).
+runtime error: Division by zero
+proc name: process (/obj/machinery/power/supermatter/process)
+  source file: supermatter.dm,243
+  usr: null
+  src: Supermatter (/obj/machinery/power/supermatter)
+
+
+The following runtime has occured 38 time(s).
+runtime error: Cannot execute null.IsSame().
+proc name: HasDisease (/mob/proc/HasDisease)
+  source file: _MobProcs.dm,4
+  usr: Faruk Gyros (/mob/living/carbon/human)
+  src: Faruk Gyros (/mob/living/carbon/human)
+
+
+The following runtime has occured 28 time(s).
+runtime error: Cannot modify null.update.
+proc name: process (/obj/machinery/atmospherics/unary/heat_exchanger/process)
+  source file: heat_exchanger.dm,64
+  usr: null
+  src: the heat exchanger (/obj/machinery/atmospherics/unary/heat_exchanger)
+
+
+The following runtime has occured 27 time(s).
+runtime error: bad client
+proc name: update normal mode (/mob/proc/update_normal_mode)
+  source file: login.dm,68
+  usr: Lynn Anderson (/mob/dead/observer)
+  src: Lynn Anderson (/mob/dead/observer)
+
+
+The following runtime has occured 24 time(s).
+runtime error: Cannot create objects of type /obj/item/weapon/reagent_containers/food/snacks/customizable/cook/bread.
+proc name: New (/obj/machinery/cooking/oven/New)
+  source file: oven.dm,94
+  usr: null
+  src: the oven (/obj/machinery/cooking/oven)
+
+
+The following runtime has occured 20 time(s).
+runtime error: Cannot execute null.getIsRunning().
+proc name: Stat (/mob/Stat)
+  source file: mob.dm,680
+  usr: JamieHankins (/mob/new_player)
+  src: JamieHankins (/mob/new_player)
+
+
+The following runtime has occured 14 time(s).
+runtime error: pick() from empty list
+proc name: examine (/obj/item/weapon/reagent_containers/food/snacks/customizable/examine)
+  source file: snacks_customizables.dm,184
+  usr: BrigMcTide (/mob/living/carbon/human)
+  src: the filled donut (/obj/item/weapon/reagent_containers/food/snacks/customizable/candy/donut)
+
+
+The following runtime has occured 10 time(s).
+runtime error: Cannot execute null.react().
+proc name: process (/obj/item/weapon/tank/process)
+
+
+The following runtime has occured 9 time(s).
+runtime error: Cannot modify /obj/item/weapon/circuitboard/arcade/battle.loc.
+proc name: attackby (/obj/structure/computerframe/attackby)
+  source file: buildandrepair.dm,339
+  usr: Ca Caw (/mob/living/carbon/human)
+  src: the computer-frame (/obj/structure/computerframe)
+
+
+The following runtime has occured 6 time(s).
+runtime error: undefined proc or verb /turf/simulated/floor/plating/try destroy().
+
+
+
+The following runtime has occured 5 time(s).
+runtime error: Cannot read null.screen
+proc name: show to (/obj/item/weapon/storage/proc/show_to)
+  source file: storage.dm,78
+  usr: Screechless Bird (/mob/living/carbon/human)
+  src: Giggles von Honkerton (/obj/item/weapon/storage/backpack/clown)
+
+
+The following runtime has occured 4 time(s).
+runtime error: Cannot read null.dna
+proc name: Move (/mob/living/Move)
+  source file: living.dm,543
+  usr: Kendall Rowley (/mob/living/carbon/human)
+  src: Kendall Rowley (/mob/living/carbon/human)
+
+
+The following runtime has occured 4 time(s).
+runtime error: Cannot modify null.loc.
+proc name: eject (/obj/machinery/suit_storage_unit/proc/eject)
+  source file: suit_storage_unit.dm,315
+  usr: Aidan Alekseev (as Frank Garre... (/mob/living/carbon/human)
+  src: the suit storage unit (/obj/machinery/suit_storage_unit/syndicate)
+
+
+The following runtime has occured 3 time(s).
+runtime error: Cannot execute null.on merge().
+proc name: add reagent (/datum/reagents/proc/add_reagent)
+  source file: Chemistry-Holder.dm,377
+  usr: Brayden James (/mob/living/carbon/human)
+  src: /datum/reagents (/datum/reagents)
+
+
+The following runtime has occured 2 time(s).
+runtime error: Cannot read /obj/item/weapon/circuitboard/... (/obj/item/weapon/circuitboard/arcade/battle).build_path
+proc name: attackby (/obj/structure/computerframe/attackby)
+  source file: buildandrepair.dm,396
+  usr: Ca Caw (/mob/living/carbon/human)
+  src: the computer-frame (/obj/structure/computerframe)
+
+
+The following runtime has occured 2 time(s).
+runtime error: Cannot read 0.client
+proc name: toggle power (/obj/machinery/particle_accelerator/control_box/proc/toggle_power)
+  source file: particle_control.dm,214
+  usr: 0
+  src: Particle Accelerator Control C... (/obj/machinery/particle_accelerator/control_box)
+
+
+The following runtime has occured 2 time(s).
+runtime error: list index out of bounds
+proc name: process queue (/obj/machinery/mecha_part_fabricator/proc/process_queue)
+  source file: mech_fabricator.dm,207
+  usr: BUTTTTTTTT BOTTTTTTT (/mob/living/silicon/robot)
+  src: the exosuit fabricator (/obj/machinery/mecha_part_fabricator)
+
+
+The following runtime has occured 2 time(s).
+runtime error: Cannot read null.special_verbs
+proc name: cast (/obj/effect/proc_holder/spell/targeted/mind_transfer/cast)
+
+
+The following runtime has occured 2 time(s).
+runtime error: Cannot execute null.init().
+proc name: doWork (/datum/controller/process/disease/doWork)
+
+
+The following runtime has occured 2 time(s).
+runtime error: Cannot read null.client
+proc name: toggle power (/obj/machinery/particle_accelerator/control_box/proc/toggle_power)
+  source file: particle_control.dm,214
+  usr: null
+  src: Particle Accelerator Control C... (/obj/machinery/particle_accelerator/control_box)
+
+
+The following runtime has occured 1 time(s).
+Session terminated, terminating shell...runtime error: Cannot create objects of type /obj/item/weapon/reagent_containers/food/snacks/customizable/cook/bread.
+proc name: New (/obj/machinery/cooking/oven/New)
+  source file: oven.dm,94
+  usr: null
+  src: the oven (/obj/machinery/cooking/oven)
+
+
+The following runtime has occured 1 time(s).
+runtime error: Cannot execute null.return volume().
+proc name: handle internal lifeform (/obj/proc/handle_internal_lifeform)
+  source file: objs.dm,49
+  usr: null
+  src:   (/obj/screen)
+
+
+The following runtime has occured 1 time(s).
+runtime error: Cannot read null.x
+proc name: Spawn (/datum/admins/proc/spawn_atom)
+  source file: admin.dm,731
+  usr: null
+  src: Nokington (/client)
+
+
+The following runtime has occured 1 time(s).
+runtime error: Cannot execute null.Smoke().
+proc name: afterattack (/obj/item/weapon/extinguisher/mini/nozzle/afterattack)
+  source file: watertank.dm,287
+  usr: Trail-Mix-Bitch (/mob/living/carbon/human)
+  src: the extinguisher nozzle (/obj/item/weapon/extinguisher/mini/nozzle)
+
+
+The following runtime has occured 1 time(s).
+runtime error: Cannot read null.hacked
+proc name: Topic (/obj/machinery/computer/rdconsole/Topic)
+  source file: rdconsole.dm,412
+  usr: Tanner Sloan (/mob/living/carbon/human)
+  src: Core R&D Console (/obj/machinery/computer/rdconsole/core)
+
+
+The following runtime has occured 1 time(s).
+runtime error: Cannot modify /obj/item/weapon/circuitboard/arcade/orion_trail.loc.
+proc name: attackby (/obj/structure/computerframe/attackby)
+
+
+The following runtime has occured 1 time(s).
+runtime error: undefined proc or verb /mob/living/silicon/robot/set syndie radio().
+
+
+
+The following runtime has occured 1 time(s).
+runtime error: Cannot execute null.change mob type().
+proc name: Topic (/datum/admins/Topic)
+  source file: topic.dm,256
+  usr: null
+  src: /datum/admins (/datum/admins)
+
+
+The following runtime has occured 1 time(s).
+runtime error: Cannot read null.layer
+proc name: Life (/mob/living/silicon/ai/Life)
+
+
+The following runtime has occured 1 time(s).
+runtime error: Cannot read null.air
+proc name: reconcile air (/datum/pipeline/proc/reconcile_air)
+  source file: datum_pipeline.dm,224
+  usr: null
+  src: /datum/pipeline (/datum/pipeline)

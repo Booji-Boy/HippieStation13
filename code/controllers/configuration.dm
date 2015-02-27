@@ -62,6 +62,9 @@
 	var/rulesurl = "http://www.tgstation13.org/wiki/Rules" // default rules
 	var/githuburl = "https://www.github.com/tgstation/-tg-station" //default github
 
+	var/media_base_url = "" // http://ss13.nexisonline.net/media
+	var/media_secret_key = "" // Random string
+
 	var/forbid_singulo_possession = 0
 	var/useircbot = 0
 
@@ -423,6 +426,10 @@
 					config.mutant_races				= 1
 				if("mutant_colors")
 					config.mutant_colors			= 1
+				if("media_base_url")
+					media_base_url = value
+				if("media_secret_key")
+					media_secret_key = value
 				else
 					diary << "Unknown setting in configuration: '[name]'"
 

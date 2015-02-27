@@ -157,3 +157,19 @@ AUTOMUTE_ON
 ACHIEVEMENT_HUB Foos.FPStationMedals
 ## Password for byond 
 ACHIEVEMENT_PASSWORD Nikita1
+
+## Media URL.
+## The base URL of your media library.  DO NOT ADD A SLASH AT THE END!
+## NOTE that this must be publically-accessible.
+MEDIA_BASE_URL http://media.jamiehankins.co.uk
+
+
+##  Media Server 2 requires a secret key in order to tell the jukebox
+## where the music files are. It's set in config with MEDIA_SECRET_KEY
+## and MUST be the same as the media server's.
+##
+##  If you're using older code that doesn't require a password, just
+## leave this blank.
+##
+##  Do NOT share this, it's like a password.
+MEDIA_SECRET_KEY ayylmao

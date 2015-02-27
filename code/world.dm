@@ -196,6 +196,10 @@
 		if(count > 10)
 			log << "#[count]\t[index]"
 #endif
+	for(var/mob/M in mob_list)
+		if(M && M.client)
+			M.stop_all_music()
+			
 	spawn(0)
 		world << sound(pick('sound/AI/newroundsexy.ogg','sound/misc/apcdestroyed.ogg','sound/misc/bangindonk.ogg')) // random end sounds!! - LastyBatsy
 

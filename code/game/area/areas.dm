@@ -340,6 +340,11 @@
 
 	L.lastarea = newarea
 
+	//if(istype(M, /mob/living/carbon/human)||istype(M, /mob/dead/observer))
+	//	testing("Received OnMobAreaChange for [M.type] [M] (M.client=[M.client==null?"null":"/client"]).")
+	if(L.client && L.client.media && !L.client.media.forced)
+		L.update_music()
+
 	// Ambience goes down here -- make sure to list each area seperately for ease of adding things in later, thanks! Note: areas adjacent to each other should have the same sounds to prevent cutoff when possible.- LastyScratch
 	if(!(L && L.client && (L.client.prefs.toggles & SOUND_AMBIENCE)))	return
 	// if(istype(get_turf(A), /turf/space) && L.client.ambience_playing != 'sound/ambience/loop/hallow.ogg')

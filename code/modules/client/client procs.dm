@@ -166,6 +166,10 @@ var/next_external_rsc = 0
 	if(prefs.lastchangelog != changelog_hash) //bolds the changelog button on the interface so we know there are updates.
 		changes()
 
+	src.media = new /datum/media_manager(src)
+	src.media.open()
+	src.media.update_music()
+
 	spawn()
 		goodcurity = src.mob.check_achievement("Goodcurity", src.key)
 
